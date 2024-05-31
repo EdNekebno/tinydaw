@@ -37,6 +37,8 @@ The long bar represents the play loop. This enables you to work on small section
 
 Press the space bar to start playing, press it again to stop.
 
+Notes for the currently selected block (the one matching the track selection highlighter) are displayed at the bottom of the screen. Use the arrow keys to move position. Press the keys 1-8 to get the varying length notes. Place the cursor over the start of the note and use the DELETE key to delete a note.
+
 Use the F1 key to save your music file out to the .mzk file.
 
 Use the F12 key to exit the tool. This does not save, so save your file first with F1 if you want to.
