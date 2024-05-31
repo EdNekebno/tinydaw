@@ -79,6 +79,14 @@ Add the following to the top of your game's main .c file
 
 `#include "music.h"`
 
+Load the music somewhere early on, for example in main
+
+`load_music("music.mzk");`
+
+Regulary, for example in your main loop, call play_music
+
+`play_music();`
+
 Compile your game including the music.c file, for example:
 
 `./rivemu -workspace -sdk -no-loading -no-window -exec gcc mygame.c music.c -o mygame -lriv`
