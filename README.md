@@ -77,7 +77,7 @@ Ensure that music.c, music.h and the saved .mzk file from tinydaw are in your ga
 
 Add the following to the top of your game's main .c file
 
-`#include "music.h"
+`#include "music.h"`
 
 Compile your game including the music.c file, for example:
 
@@ -99,4 +99,4 @@ Yes there are a lot of keys to press to do stuff. It's necessary for this kind o
 
 There is basic compression in the .mzk files that makes them a lot smaller. They could be smaller still but the compression is super compatible with run length encoding. If you make an sqfs file, it's a good idea to use the `-comp x` flag
 
-The License is MIT, so you don't need to worry about including things in your games.
+The License is MIT, so you don't need to worry about including things in your games. You don't not need to include the license file in your cartridges.
