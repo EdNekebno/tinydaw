@@ -98,3 +98,5 @@ C is far from my primary language, please feel free to submit a pull request wit
 Yes there are a lot of keys to press to do stuff. It's necessary for this kind of tool, you get used to them quickly.
 
 There is basic compression in the .mzk files that makes them a lot smaller. They could be smaller still but the compression is super compatible with run length encoding. If you make an sqfs file, it's a good idea to use the `-comp x` flag
+
+The License is MIT, so you don't need to worry about including things in your games.
