@@ -14,6 +14,12 @@
 #define NUM_BLOCKS 99
 #define NUM_BLOCK_NOTES 16
 
+#define RIV_WAVEFORM_ORGAN 7
+#define RIV_WAVEFORM_TILTED_SAWTOOTH 8
+#define NUM_INSTRUMENTS 9
+
+char* instrument_names[NUM_INSTRUMENTS] = { "NONE", "SINE", "SQUARE", "TRIANGLE", "SAWTOOTH", "NOISE", "PULSE", "ORGAN", "TILTD SAW" };
+
 unsigned short blocks[NUM_TRACKS][NUM_BLOCK_NOTES]; // Holds track block data
 unsigned int start_playing = 0; // Holds the start point for looping playback
 unsigned int stop_playing = 15; // Holds the end point for looping playback
@@ -560,49 +566,15 @@ void check_instrument_keys() {
         }
     }
     if (riv->keys[RIV_GAMEPAD_UP].press && instrument_mode_item == 0) {
-        switch (instruments[instrument_mode_track].type) {
-            case RIV_WAVEFORM_PULSE:
-                instruments[instrument_mode_track].type = RIV_WAVEFORM_NOISE;
-                break;
-            case RIV_WAVEFORM_NOISE:
-                instruments[instrument_mode_track].type = RIV_WAVEFORM_SAWTOOTH;
-                break;
-            case RIV_WAVEFORM_SAWTOOTH:
-                instruments[instrument_mode_track].type = RIV_WAVEFORM_TRIANGLE;
-                break;
-            case RIV_WAVEFORM_TRIANGLE:
-                instruments[instrument_mode_track].type = RIV_WAVEFORM_SQUARE;
-                break;
-            case RIV_WAVEFORM_SQUARE:
-                instruments[instrument_mode_track].type = RIV_WAVEFORM_SINE;
-                break;
-            case RIV_WAVEFORM_SINE:
-                instruments[instrument_mode_track].type = RIV_WAVEFORM_PULSE;
-                break;
+        if (instruments[instrument_mode_track].type > 0) {
+            instruments[instrument_mode_track].type--;
         }
     }
     if (riv->keys[RIV_GAMEPAD_DOWN].press && instrument_mode_item == 0)
     {
-        switch (instruments[instrument_mode_track].type)
+        if (instruments[instrument_mode_track].type < NUM_INSTRUMENTS - 1)
         {
-        case RIV_WAVEFORM_PULSE:
-            instruments[instrument_mode_track].type = RIV_WAVEFORM_SINE;
-            break;
-        case RIV_WAVEFORM_NOISE:
-            instruments[instrument_mode_track].type = RIV_WAVEFORM_PULSE;
-            break;
-        case RIV_WAVEFORM_SAWTOOTH:
-            instruments[instrument_mode_track].type = RIV_WAVEFORM_NOISE;
-            break;
-        case RIV_WAVEFORM_TRIANGLE:
-            instruments[instrument_mode_track].type = RIV_WAVEFORM_SAWTOOTH;
-            break;
-        case RIV_WAVEFORM_SQUARE:
-            instruments[instrument_mode_track].type = RIV_WAVEFORM_TRIANGLE;
-            break;
-        case RIV_WAVEFORM_SINE:
-            instruments[instrument_mode_track].type = RIV_WAVEFORM_SQUARE;
-            break;
+            instruments[instrument_mode_track].type++;
         }
     }
     if (riv->keys[RIV_GAMEPAD_UP].down && instrument_mode_item > 0) {
@@ -882,27 +854,7 @@ void instrument_mode_loop() {
         if (instrument_mode_track == track && instrument_mode_item == 0) {
             riv_draw_rect_fill(33 + offx, track * 32 + 1 + offy, 60 - 4, 9, RIV_COLOR_LIGHTSLATE);
         }
-        char *type_text = "PULSE";
-        if (instruments[track].type == RIV_WAVEFORM_SINE) {
-            type_text = "SINE";
-        }
-        if (instruments[track].type == RIV_WAVEFORM_SQUARE)
-        {
-            type_text = "SQUARE";
-        }
-        if (instruments[track].type == RIV_WAVEFORM_TRIANGLE)
-        {
-            type_text = "TRIANGLE";
-        }
-        if (instruments[track].type == RIV_WAVEFORM_SAWTOOTH)
-        {
-            type_text = "SAWTOOTH";
-        }
-        if (instruments[track].type == RIV_WAVEFORM_NOISE)
-        {
-            type_text = "NOISE";
-        }
-        riv_draw_text(type_text, RIV_SPRITESHEET_FONT_5X7, RIV_TOPLEFT, 35 + offx, track * 32 + 2 + offy, 1, RIV_COLOR_WHITE);
+        riv_draw_text(instrument_names[instruments[track].type], RIV_SPRITESHEET_FONT_5X7, RIV_TOPLEFT, 35 + offx, track * 32 + 2 + offy, 1, RIV_COLOR_WHITE);
         riv_draw_text("AMP", RIV_SPRITESHEET_FONT_5X7, RIV_TOPLEFT, 95 + offx, track * 32 + 2 + offy, 1, RIV_COLOR_GREEN);
         if (instrument_mode_track == track && instrument_mode_item == 1)
         {
